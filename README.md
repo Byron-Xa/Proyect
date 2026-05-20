@@ -145,20 +145,8 @@ npm run dev
 
 ```bash
 node index.js
+npm start
 ```
-
----
-
-# 📸 Capturas
-
-## Login
-<img src="./screenshots/login.png" />
-
-## Dashboard
-<img src="./screenshots/dashboard.png" />
-
-## Gestión de Usuarios
-<img src="./screenshots/users.png" />
 
 ---
 
@@ -186,7 +174,7 @@ Próximas mejoras:
 
 # 👨‍💻 Autor
 
-Desarrollado por Byron
+Desarrollado por Byron Xavier Casa Casa
 
 GitHub:
 - https://github.com/Byron-Xa
