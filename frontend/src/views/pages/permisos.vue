@@ -216,7 +216,7 @@ const permisosPaginados = computed(() => {
                             </th>
                         </tr>
                     </thead>
-                    <tbody v-if="Number(rolSeleccionado) !== 1 && permisos.length">
+                    <tbody v-if="permisos.length">
                         <!-- Fila 1 -->
                         <tr v-for="(permiso, index) in permisosPaginados" :key="permiso.id" class="table-row">
                             <td class="td px-5 py-3 text-sm border-b" style="color:#55526a;">{{  (paginaActual - 1) * itemsPorPagina + index + 1 }}</td>
@@ -225,17 +225,17 @@ const permisosPaginados = computed(() => {
                                     {{ permiso.nombre }}
                                 </div>
                             </td>
-                            <td class="td px-5 py-3 text-sm border-b"><input type="checkbox" :disabled="!puedeEditar(permiso)"
+                            <td class="td px-5 py-3 text-sm border-b"><input type="checkbox" :disabled="!puedeEditar('permiso')"
                                     class="w-4 h-4 accent-violet-500 cursor-pointer"  v-model="permiso.puede_ver" @change="actualizarPermiso(permiso)" /></td>
-                            <td class="td px-5 py-3 text-sm border-b"><input type="checkbox" :disabled="!puedeEditar(permiso)"
+                            <td class="td px-5 py-3 text-sm border-b"><input type="checkbox" :disabled="!puedeEditar('permiso')"
                                     class="w-4 h-4 accent-violet-500 cursor-pointer"  v-model="permiso.puede_crear" @change="actualizarPermiso(permiso)" /></td>
-                            <td class="td px-5 py-3 text-sm border-b"><input type="checkbox" :disabled="!puedeEditar(permiso)"
+                            <td class="td px-5 py-3 text-sm border-b"><input type="checkbox" :disabled="!puedeEditar('permiso')"
                                     class="w-4 h-4 accent-violet-500 cursor-pointer" v-model="permiso.puede_editar" @change="actualizarPermiso(permiso)" /></td>
-                            <td class="td px-5 py-3 text-sm border-b"><input type="checkbox" :disabled="!puedeEditar(permiso)"
+                            <td class="td px-5 py-3 text-sm border-b"><input type="checkbox" :disabled="!puedeEditar('permiso')"
                                     class="w-4 h-4 accent-violet-500 cursor-pointer" v-model="permiso.puede_eliminar" @change="actualizarPermiso(permiso)" /></td>
                             <td class="td px-5 py-3 text-sm border-b">
                                 <div class="flex items-center justify-center gap-2">
-                                    <button @click="eliminarPermiso(permiso)" :disabled="!puedeEliminar(permiso)" class="action-btn action-btn-del px-3 py-1 rounded-lg text-xs border"><i
+                                    <button @click="eliminarPermiso(permiso)" :disabled="!puedeEliminar('permiso')" class="action-btn action-btn-del px-3 py-1 rounded-lg text-xs border"><i
                                             data-lucide="trash" class="action-btn-icon w-4 h-4"></i> </button>
                                 </div>
                             </td>
