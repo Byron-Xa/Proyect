@@ -24,7 +24,6 @@ async function getUsuarios() {
         usuarios.value = data;
         notif.notify('Usuarios recibidos exitosamente', 'success');
     } catch (error) {
-        console.error(error);
         notif.notify('Error al conectar con la base de datos', 'error');
     }
 }
@@ -40,7 +39,6 @@ async function crearUsuario(data){
     modalVisible.value = false;
     await getUsuarios();
   } catch (error) {
-    console.error(error);
     notif.notify('Error al crear el usuario', 'error');
   }
 }
@@ -62,7 +60,6 @@ async function actualizarUsuario(data){
     notif.notify('Usuario actualizado', 'success');
 
   } catch (error) {
-    console.error(error);
     notif.notify('Error al actualizar', 'error');
   }
 }

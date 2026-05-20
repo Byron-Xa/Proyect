@@ -35,7 +35,6 @@ async function getCategorias() {
         await nextTick()
         setupLucide()
     } catch (error) {
-        console.error(error);
         notif.notify('Error al conectar con la base de datos', 'error');
     }
 }
@@ -87,7 +86,6 @@ async function crearProducto(data) {
         await nextTick()
         setupLucide()
     } catch (error) {
-        console.error(error);
         notif.notify('Error al crear el producto', 'error');
     }
 }
@@ -109,7 +107,6 @@ async function actualizarProducto(data) {
         await nextTick()
         setupLucide()
     } catch (error) {
-        console.error(error);
         notif.notify('Error al actualizar el producto', 'error');
     }
 }
@@ -129,7 +126,6 @@ async function confirmarEliminar() {
         await nextTick()
         setupLucide()
     } catch (error) {
-        console.error(error);
         notif.notify('Error al eliminar el producto', 'error');
     }
 }
@@ -147,7 +143,6 @@ async function generarPDFProducto() {
         modalPsfVisible.value = true;
 
     } catch (error) {
-        console.error(error);
         notif.notify('Error al generar el pdf', 'error');
     }
 }
@@ -178,7 +173,6 @@ async function generarPDFProductoIndividual(id) {
         
         modalPsfVisible.value = true;
     } catch (error) {
-        console.error(error);
         notif.notify('Error al generar el pdf', 'error');
     }
 }

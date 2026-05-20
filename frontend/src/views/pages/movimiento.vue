@@ -99,7 +99,6 @@ async function generarPDFMovimiento(id) {
         modalPdfVisible.value = true;
 
     } catch (error) {
-        console.error(error);
         notif.notify('Error al generar el pdf', 'error');
     }
 }

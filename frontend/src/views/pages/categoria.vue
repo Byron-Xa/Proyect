@@ -41,7 +41,6 @@ async function crearCategoria(data) {
         await nextTick()
         setupLucide()
     } catch (error) {
-        console.error(error);
         notif.notify('Error al crear la categoría', 'error');
     }
 }
@@ -61,7 +60,6 @@ async function actualizarCategoria(data) {
         await nextTick()
         setupLucide()
     } catch (error) {
-        console.error(error);
         notif.notify('Error al actualizar la categoría', 'error');
     }
 }
@@ -81,7 +79,6 @@ async function confirmarEliminar() {
         await nextTick()
         setupLucide()
     } catch (error) {
-        console.error(error);
         notif.notify('Error al eliminar la categoría', 'error');
     }
 }

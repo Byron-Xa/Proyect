@@ -102,7 +102,6 @@ async function guardar() {
         cerrarmodal()
         notif.notify('Compra registrada exitosamente', 'success')
     } catch (error) {
-        console.error(error)
         notif.notify('Error al registrar la compra', 'error')
     }
 }

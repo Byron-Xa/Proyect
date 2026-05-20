@@ -18,7 +18,6 @@ async function getRols() {
         const { data } = await api.get('/roles');
         roles.value = data;
     } catch (error) {
-        console.error(error);
         notif.notify('Error al conectar con la base de datos', 'error');
     }
 }

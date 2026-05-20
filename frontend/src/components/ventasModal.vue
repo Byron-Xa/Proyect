@@ -100,8 +100,6 @@ async function guardar() {
         cerrarmodal()
         notif.notify('Venta registrada exitosamente', 'success')
     } catch (error) {
-        console.error(error)
-        // ✅ muestra el mensaje del backend (stock insuficiente, etc)
         const msg = error.response?.data?.message || 'Error al registrar la venta'
         notif.notify(msg, 'error')
     }

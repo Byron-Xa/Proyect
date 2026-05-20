@@ -21,7 +21,6 @@ async function getProductos() {
         productos.value = data;
         notif.notify('Productos recibidos exitosamente', 'success');
     } catch (error) {
-        console.error(error);
         notif.notify('Error al conectar con la base de datos', 'error');
     }
 }
@@ -53,7 +52,6 @@ async function guardar() {
         emit('close');
         cerrar();
     } catch (error) {
-        console.error(error);
         notif.notify('Error al crear el movimiento', 'error');
     }
 }

@@ -74,7 +74,6 @@ async function crearSubmenu(data) {
         await nextTick()
         setupLucide()
     } catch (error) {
-        console.error(error);
         notif.notify('Error al crear el submenu', 'error');
     }
 }

@@ -46,7 +46,6 @@ async function crearRol(data){
         await nextTick()
         setupLucide()
     } catch (error) {
-        console.error(error);
         notif.notify('Error al crear el rol', 'error');
     }
 }
@@ -66,7 +65,6 @@ async function actualizarRol(data){
         await nextTick()
         setupLucide()
     } catch (error) {
-        console.error(error);
         notif.notify('Error al actualizar el rol', 'error');
     }
 }

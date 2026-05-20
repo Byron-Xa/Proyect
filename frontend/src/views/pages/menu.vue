@@ -42,7 +42,6 @@ async function crearMenu(data) {
         modalVisible.value = false;
         await getMenus();
     } catch (error) {
-        console.error(error);
         notif.notify('Error al crear el menu', 'error');
     }
 }
@@ -77,7 +76,6 @@ async function confirmarEliminar() {
         menuAEliminar.value = null;
         notif.notify('Menu eliminado exitosamente', 'success');
     } catch (error) {
-        console.error(error);
         notif.notify('Error al eliminar el menu', 'error');
     }
 }

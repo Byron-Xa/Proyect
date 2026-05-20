@@ -45,7 +45,6 @@ async function crearProveedor(data) {
         await nextTick()
         setupLucide()
     } catch (error) {
-        console.error(error);
         notif.notify('Error al crear el proveedor', 'error');
     }
 }
@@ -65,7 +64,6 @@ async function actualizarProveedor(data) {
         await nextTick()
         setupLucide()
     } catch (error) {
-        console.error(error);
         notif.notify('Error al actualizar el proveedor', 'error');
     }
 }
@@ -85,7 +83,6 @@ async function confirmarEliminar() {
         await nextTick()
         setupLucide()
     } catch (error) {
-        console.error(error);
         notif.notify('Error al eliminar el proveedor', 'error');
     }
 }

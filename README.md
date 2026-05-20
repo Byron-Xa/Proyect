@@ -153,7 +153,7 @@ npm start
 # 🌐 Deploy
 
 Frontend desplegado en:
-- Vercel
+- Netlify
 
 Backend desplegado en:
 - Render / Railway

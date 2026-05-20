@@ -101,7 +101,6 @@ async function añadirPermiso(){
         submenuSeleccionado.value = '';
     } catch (error) {
         notif.notify(error.response.data.message, 'error');
-        console.error(error);
     }
 }
 
@@ -142,7 +141,6 @@ async function confirmarEliminar(){
         permisoAEliminar.value = null;
         notif.notify('Permiso eliminado exitosamente', 'success');
     } catch (error) {
-        console.error(error);
         notif.notify('Error al eliminar el permiso', 'error');
     }
 }

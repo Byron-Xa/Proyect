@@ -56,7 +56,6 @@ async function cambiarEstado(compra, estado) {
         await nextTick()
         setupLucide()
     } catch (error) {
-        console.error(error);
         notif.notify('Error al actualizar el estado', 'error');
     }
 }
@@ -76,7 +75,6 @@ async function confirmarEliminar() {
         await nextTick()
         setupLucide()
     } catch (error) {
-        console.error(error);
         notif.notify('Error al eliminar la compra', 'error');
     }
 }
@@ -94,7 +92,6 @@ async function generarPDFCompras(id) {
         modalPdfVisible.value = true;
 
     } catch (error) {
-        console.error(error);
         notif.notify('Error al generar el pdf', 'error');
     }
 }
