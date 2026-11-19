@@ -16,6 +16,10 @@ import ventas from '@/views/pages/ventas.vue'
 import estadisticasMovimientos from '@/views/pages/estadisticasMovimientos.vue'
 import estadisticasProductos from '@/views/pages/estadisticasProductos.vue'
 import estadisticasStock from '@/views/pages/estadisticasStock.vue'
+import cambiarContraseña from '@/views/pages/cambiarContraseña.vue'
+import datosPersonales from '@/views/pages/datosPersonales.vue'
+import informacionPersonal from '@/views/pages/informacionDeLaCuenta.vue'
+import usuariosMultiples from '@/views/pages/usuariosMultiples.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -86,6 +90,22 @@ const router = createRouter({
         {
           path: '/stocks',
           component: estadisticasStock,
+        },
+        {
+          path: '/cambiar_contraseña',
+          component: cambiarContraseña,
+        },
+        {
+          path: '/dato_personal',
+          component: datosPersonales,
+        },
+        {
+          path: '/informacion_cuenta',
+          component: informacionPersonal,
+        },
+        {
+          path: '/users',
+          component: usuariosMultiples,
         }
       ]
     },
@@ -109,10 +129,18 @@ router.beforeEach((to, from, next) => {
     return next('/');
   }
   
-  if (auth.user?.rol_id === 1){
+  if (Number(auth.user?.rol_id === 1)){
     return next();
   }
-  const tieneAcceso = auth.menus.some(menu => menu.subMenus.some(sub => '/' + sub.ruta === to.path));
+
+  const rutaActual = to.path.replace(/\/+$/, '') || '/';
+
+  
+  const tieneAcceso = auth.menus.some(menu => menu.subMenus.some(sub => {
+    const rutaSubmenu = ('/' + sub.ruta).replace(/\/+/g, '/').replace(/\/+$/, '');
+    return rutaSubmenu === rutaActual;
+  })
+);
 
   if (!tieneAcceso){
     return next('/index');

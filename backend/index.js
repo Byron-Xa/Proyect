@@ -1,9 +1,11 @@
 require('dotenv').config();
+const http = require('http');  
 const express = require('express');
 const cors = require('cors');
 const db = require('./db/db');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit')
+const { initSocket } = require('./socket');
 
 const app = express();
 
@@ -26,7 +28,6 @@ app.use(cors({
     'http://localhost',
     'http://localhost:5173',
     'http://127.0.0.1:5173',
-    'https://invetarioproyect.netlify.app'
   ],
   credentials: true,
 }));
@@ -67,6 +68,9 @@ app.use('/api/reportes', reportesRoutes);
 app.use('/api/stock', stockRoutes);
 
 
-app.listen(port, () => {
+const server = http.createServer(app);
+initSocket(server);
+
+server.listen(port, () => {
   console.log(`Servidor corriendo en el puerto ${port}`);
 });

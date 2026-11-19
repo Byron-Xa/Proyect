@@ -1,11 +1,12 @@
 <script setup>
 import '../assets/css/dasboard.css'
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import Toast from '../components/Toasi.vue'
 import LogoutModal from '../components/logoutModal.vue'
 import { useNotificationStore } from '../stores/toastNotify'
+import { connectSocket } from '../services/socket'
 
 const router = useRouter()
 const route = useRoute()
@@ -45,6 +46,8 @@ function toggleSidebar() {
         sidebarOpen.value = true
     }
 }
+
+onMounted(() => connectSocket(auth.token))
 </script>
 <template>
     <div class="layout-root">

@@ -1,6 +1,9 @@
 import { defineStore } from 'pinia'
 import {ref, computed} from 'vue'
 import api from '../api/axios'
+import { connectSocket, disconnectSocket } from '../services/socket'
+
+const norm = (r) => String(r || '').split('?')[0].replace(/^\/+|\/+$/g, '').toLowerCase()
 
 export const useAuthStore = defineStore('auth', () => {
     const token = ref(localStorage.getItem('token') || null);
@@ -21,9 +24,12 @@ export const useAuthStore = defineStore('auth', () => {
         localStorage.setItem('user', JSON.stringify(user.value));
         localStorage.setItem('menus', JSON.stringify(menus.value));
         localStorage.setItem('permisos', JSON.stringify(permisos.value));
+
+        connectSocket(token.value);
     }
 
     function logout() {
+        disconnectSocket(); 
         token.value = null;
         user.value = null;
         menus.value = [];
@@ -36,5 +42,11 @@ export const useAuthStore = defineStore('auth', () => {
 
     }
 
-    return { token, user, menus, isAuthenticated, login, logout, permisos };
+    function can(ruta, accion = 'ver') {
+        if (isSuperAdmin.value) return true;
+        const p = permisos.value.find(x => norm(x.ruta) === norm(ruta));
+        return p ? Number(p[`puede_${accion}`]) === 1 : false;
+    }
+
+    return { token, user, menus, isAuthenticated, login, logout, permisos, can };
 })

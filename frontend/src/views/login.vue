@@ -14,8 +14,9 @@ const error = ref('');
 const showPass = ref(false);
 
 const form = reactive({
-    username: '',
+    email: '',
     password: '',
+    username: '',
 });
 
 onMounted(() => setupLucide())
@@ -24,14 +25,14 @@ function togglePassword() {
 }
 
 async function handleLogin() {
-    if (!form.username || !form.password) {
+    if (!form.email || !form.password) {
         notif.notify('Por favor, rellena todos los campos', 'warning');
         return;
     }
     try {
         loading.value = true;
         error.value = '';
-        await auth.login({ username: form.username, password: form.password });
+        await auth.login({ email: form.email, password: form.password });
         notif.notify(`Bienvenido ${form.username} al sistema de invetario`, 'success');
         setTimeout(() => {
             router.push('/index');
@@ -39,8 +40,9 @@ async function handleLogin() {
         nextTick(() => setupLucide())
 
     } catch (error) {
-        notif.notify('Usuario o contraseña incorrectos', 'error');
-        nextTick(() => setupLucide())
+        const msg = error.response?.data?.message || 'No se pudo conectar con el servior'
+        error.value = msg;
+        notif.notify(msg, 'error');
     } finally {
         loading.value = false;
     }
@@ -120,8 +122,8 @@ async function handleLogin() {
                             <span class="field-icon">
                                 <i data-lucide="user"></i>
                             </span>
-                            <input v-model="form.username" type="text" class="field-input"
-                                placeholder="nombre de usuario" autocomplete="username" />
+                            <input v-model="form.email" type="text" class="field-input"
+                                placeholder="nombre de usuario" autocomplete="email" />
                         </div>
                     </div>
 
@@ -131,10 +133,11 @@ async function handleLogin() {
                             <span class="field-icon">
                                 <i data-lucide="lock"></i>
                             </span>
-                            <input v-model="form.password" type="password" class="field-input" placeholder="••••••••"
+                            <input v-model="form.password" :type="showPass ? 'text' : 'password'" class="field-input" placeholder="••••••••"
                                 autocomplete="current-password" />
-                            <button type="button" class="field-eye" tabindex="-1">
-                                <i data-lucide="eye"></i>
+                            <button type="button" class="field-eye" tabindex="-1" :aria-label="showPass ? 'Ocultar contraseña' :  'Mostrar contraseña'" @click="togglePassword">
+                                <span v-show="!showPass"><i data-lucide="eye"></i></span>
+                                <span v-show="showPass"><i data-lucide="eye-off"></i></span>
                             </button>
                         </div>
                     </div>

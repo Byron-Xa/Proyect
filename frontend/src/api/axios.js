@@ -4,7 +4,8 @@ import { useAuthStore } from '../stores/auth'
 import router from '../router';
 
 const api = axios.create({
-    baseURL: 'https://inventario-api-253x.onrender.com/api',
+   
+    baseURL: 'http://localhost:3000/api/',
     headers: {
         'Content-Type': 'application/json',
     },

@@ -5,22 +5,47 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 exports.login = async (req, res) => {
+
+    let user = null;
     try {
-        const { username, password } = req.body;
+        const email = String(req.body.email || '').trim().toLowerCase();
+        const password = req.body.password;
 
-        const users = await userModel.findUserByUsername(username);
-
-        if (!users || users.length === 0) {
-            return res.status(404).json({ message: 'Usuario no encontrado' });
+        if (!email || typeof password !== 'string' || !password) {
+            return res.status(400).json({message: 'Ingrese su correo electronico y contraseña'});
         }
 
-        const user = users[0];
+        if (!process.env.JWT_SECRET){
+            throw new Error('JWT_SECRET no esta configurado');
+        };
+
+        const result  = await userModel.findUserByEmail(email);
+        user = Array.isArray(result) ? result[0] :result;
+
+        if (!user) {
+            return res.status(401).json({ message: 'Credenciales incorrectas'});
+        };
+
+        if (user.activo !== 'A') {
+            return res.status(401).json({message: 'La cuenta esta Inactivo'});
+        };
+
+        if (user.bloqueado_hasta && new Date(user.bloqueado_hasta) > new Date){
+            return res.status(423).json({message: 'Cuenta bloqueada temporalmente. Intente mas tarde.'})
+        };
 
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (!isMatch) {
-            return res.status(401).json({ message: 'Contraseña incorrecta' });
+
+            await userModel.registroIntentosFallidos(user.id);
+
+            return res.status(401).json({message: 'Credenciales incorrectos'});
         }
+
+        await userModel.resetFailedAttempts(user.id);
+
+        const rolId = Number(user.rol_id);
 
         const menus = await new MenuAdmin().createMenu(user.id, user.rol_id);
 
@@ -56,5 +81,16 @@ if (user.rol_id === 1) {
     } catch (error) {
         console.error('Error al autenticar:', error);
         res.status(500).json({ message: 'Error al autenticar' });
+    }
+};
+
+exports.logout = async (req, res) => {
+    try {
+        await db.query(`UPDATE usuarios SET token_version = token_version + 1 WHERE id = ?`, [req.user.id]);
+
+        return res.json({message: 'Sesión cerrada correctamente'});
+
+    } catch (error) {
+        return res.status(500).json({ message: 'Error al cerrar sesión'});
     }
 };
